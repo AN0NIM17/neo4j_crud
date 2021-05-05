@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  neo4j-crud:
+    container_name: neo4j-crud
+    build:
+      .
+    ports:
+      - 8585:8585
+    depends_on:
+      - neo4j
+    network_mode: host
+
+  neo4j:
+    image: neo4j:latest
+    container_name: neo4j
+    ports:
+      - 7474:7474
+      - 7687:7687
+    network_mode: host
+    environment:
+      NEO4J_AUTH: neo4j/qwerty
+    volumes:
+      - /neo4j/import:/var/lib/neo4j/import
+      - /neo4j/plugins:/plugins
